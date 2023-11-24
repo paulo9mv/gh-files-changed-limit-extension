@@ -1,0 +1,38 @@
+// ==UserScript==
+// @name       github-no-files-changed
+// @namespace  https://github.com/paulo9mv
+// @version    0.1
+// @description  Stops Github from loading lots of files when viewing a pull request with lots of files changed
+// @match      https://github.com/paulo9mv
+// @copyright  2023+
+// @require http://code.jquery.com/jquery-latest.js
+// ==/UserScript==
+
+$(document).ready(function () {
+  const elements = $(".js-diff-progressive-container");
+  const container = elements.length > 0 ? elements[0] : null;
+  $("#overlay-show-review-changes-modal")
+    .parent()
+    .before(
+      '<div id=paulo class="diffbar-item dropdown js-reviews-container"></div>'
+    );
+  $("#paulo").append(
+    '<a target="_blank" " href="/codespaces/new/dlpco/bank-admin/pull/7280?resume=1" data-view-component="true" class="btn btn-sm Link hide-lg mr-2">Hide files changed</a>'
+  );
+
+  if (!container) return;
+
+  elements.first().children().not(":first").remove();
+});
+
+<div class="diffbar-item dropdown js-reviews-container">
+  <a
+    target="_blank"
+    aria-label="Review this pull request in a codespace"
+    href="/codespaces/new/dlpco/bank-admin/pull/7280?resume=1"
+    data-view-component="true"
+    class="btn btn-sm Link hide-lg mr-2"
+  >
+    Review in codespace
+  </a>{" "}
+</div>;
